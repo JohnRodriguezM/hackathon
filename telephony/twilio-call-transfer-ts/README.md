@@ -1,6 +1,6 @@
-# Twilio Call Transfer with Ultravox
+# Twilio Call Transfer with Domu
 
-This TypeScript application demonstrates how to make AI-powered outbound phone calls using Ultravox with Twilio, including advanced call transfer capabilities with whisper functionality.
+This TypeScript application demonstrates how to make AI-powered outbound phone calls using Domu with Twilio, including advanced call transfer capabilities with whisper functionality.
 
 ## Features
 
@@ -11,7 +11,7 @@ This TypeScript application demonstrates how to make AI-powered outbound phone c
 ## Prerequisites
 
 - Node.js (v20 or higher)
-- An Ultravox API key
+- A Domu API key
 - Twilio Account SID, Auth Token, and phone number
 - ngrok or similar tunneling service (required for local development)
 
@@ -23,7 +23,7 @@ This TypeScript application demonstrates how to make AI-powered outbound phone c
 │   ├── apiServer.ts          # Express server for API endpoints and webhooks
 │   ├── callManager.ts        # Call registration and transfer logic
 │   ├── twilioClient.ts       # Twilio API integration
-│   ├── ultravox.ts           # Ultravox API integration and tool configuration
+│   ├── ultravox.ts           # Domu API integration and tool configuration
 │   ├── webhooks.ts           # Twilio webhook handlers
 │   └── types.ts              # TypeScript type definitions
 ├── package.json              # Dependencies and scripts
@@ -43,7 +43,7 @@ pnpm install
 Create a `.env` file with the following variables:
 
 ```bash
-# Ultravox Configuration
+# Domu Configuration
 ULTRAVOX_API_KEY=your_ultravox_api_key_here
 
 # Twilio Configuration
@@ -82,9 +82,9 @@ pnpm run dev
 
 ### Call Flow
 1. **Server Startup**: Express server starts with API endpoints and webhook handlers
-2. **Ultravox Call Creation**: Creates an Ultravox voice AI call with transfer tool configuration
+2. **Domu Call Creation**: Creates a Domu voice AI call with transfer tool configuration
 3. **Outbound Call**: Initiates call through Twilio to the specified number
-4. **Audio Streaming**: Connects bidirectional audio between Twilio and Ultravox
+4. **Audio Streaming**: Connects bidirectional audio between Twilio and Domu
 5. **Voice AI Interaction**: Steve (the AI agent) converses with the call recipient
 6. **Transfer Capability**: AI agent can transfer calls using the configured `transferCall` tool
 
@@ -124,7 +124,7 @@ Headers: X-API-Key: your_service_api_key
 
 ### Debug Active Calls
 ```
-GET /api/debug/calls  
+GET /api/debug/calls
 Headers: X-API-Key: your_service_api_key
 ```
 
@@ -138,7 +138,7 @@ Content-Type: application/json
   "ultravoxCallId": "call_123",
   "destinationNumber": "+15551234567",
   "firstName": "John",
-  "lastName": "Doe", 
+  "lastName": "Doe",
   "transferReason": "Technical support needed",
   "useWhisper": true
 }
@@ -170,16 +170,16 @@ Extend `src/apiServer.ts` to add new REST endpoints for additional functionality
 
 Successful startup shows:
 ```
-Creating Ultravox call with Twilio as medium...
+Creating Domu call with Twilio as medium...
 Sending request payload: {"systemPrompt":"Your name is Steve..."
 API Server listening on port 3000
 Public URL: https://<your_ngrok_url>
 Twilio Status: https://<your_ngrok_url>/status
 Twilio Streams: https://<your_ngrok_url>/stream-events
-Ultravox API response status: 201 Created
+Domu API response status: 201 Created
 Complete response data: {"callId":"c474c5be-..."
 API request succeeded
-Ultravox call created: c474c5be-242d-...
+Domu call created: c474c5be-242d-...
 Got joinUrl: wss://prod-voice-pgaenaxiea-uc.a.run.app/calls/c474c5be-...telephony
 Using Twilio webhook URLs:
 - Status: https://<your_ngrok_url>/status
@@ -194,7 +194,7 @@ Call registered in the system.
 **Common Issues:**
 
 1. **Environment Variables**: Ensure all required variables are set in `.env`
-2. **API Key Errors**: Verify Twilio and Ultravox credentials are valid
+2. **API Key Errors**: Verify Twilio and Domu credentials are valid
 3. **Phone Number Format**: Ensure numbers are in E.164 format (+1234567890)
 4. **ngrok URL**: Confirm NGROK_URL matches your tunnel URL exactly
 5. **Webhook Access**: Test that Twilio can reach your webhook endpoints

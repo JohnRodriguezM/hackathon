@@ -1,11 +1,11 @@
-# Ultravox Twilio Inbound Call Quickstart
+# Domu Twilio Inbound Call Quickstart
 
-This Node.js application demonstrates how to handle inbound calls using Twilio and connect them to an Ultravox AI agent. When someone calls your Twilio number, they'll be connected to an AI agent that will interact with them.
+This Node.js application demonstrates how to handle inbound calls using Twilio and connect them to a Domu AI agent. When someone calls your Twilio number, they'll be connected to an AI agent that will interact with them.
 
 ## Prerequisites
 
 - Node.js (v18 or higher)
-- An Ultravox API key
+- A Domu API key
 - A Twilio account with:
   - Account SID
   - Auth Token
@@ -29,7 +29,7 @@ This Node.js application demonstrates how to handle inbound calls using Twilio a
 
    ```javascript
    // ------------------------------------------------------------
-   // Step 1:  Configure Ultravox API key
+   // Step 1:  Configure Domu API key
    //
    // Optional:  Modify the system prompt
    // ------------------------------------------------------------
@@ -68,7 +68,7 @@ This Node.js application demonstrates how to handle inbound calls using Twilio a
 
 When the server starts up, you should see:
    ```bash
-   🚀 Starting Inbound Ultravox Voice AI Phone Server...
+   🚀 Starting Inbound Domu Voice AI Phone Server...
 
    ✅ Configuration validation passed!
    🎉 Server running successfully on port 3000
@@ -85,15 +85,15 @@ When receiving a call, you should see:
    ```bash
    📞 Incoming call received
    ✅ Configuration validation passed!
-   🤖 Creating Ultravox call...
-   ✅ Got Ultravox joinUrl: wss://prod-voice-pgaenaxiea-uc.a.run.app/calls/ULTRAVOX_CALL_ID/telephony
+   🤖 Creating Domu call...
+   ✅ Got Domu joinUrl: wss://prod-voice-pgaenaxiea-uc.a.run.app/calls/ULTRAVOX_CALL_ID/telephony
    📋 Sending TwiML response to Twilio
    ```
 
 ## Troubleshooting
 
 If calls aren't connecting:
-1. Verify your Ultravox API key is correct
+1. Verify your Domu API key is correct
 1. Check that your ngrok URL is properly set as the incoming call webhook address in Twilio
 1. Ensure your server is running and accessible
 1. Check the server logs for any errors

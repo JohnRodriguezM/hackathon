@@ -10,7 +10,7 @@ const TWILIO_PHONE_NUMBER = 'your_twilio_phone_number_here';
 const DESTINATION_PHONE_NUMBER = 'the_destination_phone_number_here';
 
 // ------------------------------------------------------------
-// Step 2:  Configure Ultravox API key
+// Step 2:  Configure Domu API key
 //
 // Optional: Modify the system prompt
 // ------------------------------------------------------------
@@ -62,7 +62,7 @@ function validateConfiguration() {
     console.log('✅ Configuration validation passed!');
 }
 
-// Creates the Ultravox call using the above config
+// Creates the Domu call using the above config
 async function createUltravoxCall() {
     const ULTRAVOX_API_URL = 'https://api.ultravox.ai/api/calls';
     const request = https.request(ULTRAVOX_API_URL, {
@@ -83,15 +83,15 @@ async function createUltravoxCall() {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         resolve(parsedData);
                     } else {
-                        reject(new Error(`Ultravox API error (${response.statusCode}): ${data}`));
+                        reject(new Error(`Domu API error (${response.statusCode}): ${data}`));
                     }
                 } catch (parseError) {
-                    reject(new Error(`Failed to parse Ultravox response: ${data}`));
+                    reject(new Error(`Failed to parse Domu response: ${data}`));
                 }
             });
         });
         request.on('error', (error) => {
-            reject(new Error(`Network error calling Ultravox: ${error.message}`));
+            reject(new Error(`Network error calling Domu: ${error.message}`));
         });
         request.write(JSON.stringify(ULTRAVOX_CALL_CONFIG));
         request.end();
@@ -100,18 +100,18 @@ async function createUltravoxCall() {
 
 // Starts the program and makes the call
 async function main() {
-    console.log('🚀 Starting Outbound Ultravox Voice AI Phone Call...\n');
+    console.log('🚀 Starting Outbound Domu Voice AI Phone Call...\n');
     validateConfiguration();
     
     try {
-        console.log('📞 Creating Ultravox call...');
+        console.log('📞 Creating Domu call...');
         const ultravoxResponse = await createUltravoxCall();
         
         if (!ultravoxResponse.joinUrl) {
-            throw new Error('No joinUrl received from Ultravox API');
+            throw new Error('No joinUrl received from Domu API');
         }
         
-        console.log('✅ Got Ultravox joinUrl:', ultravoxResponse.joinUrl);
+        console.log('✅ Got Domu joinUrl:', ultravoxResponse.joinUrl);
 
         console.log('📱 Initiating Twilio call...');
         const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
@@ -133,8 +133,8 @@ async function main() {
             console.error('   🔐 Authentication failed - check your Twilio credentials');
         } else if (error.message.includes('phone number')) {
             console.error('   📞 Phone number issue - verify your phone numbers are correct');
-        } else if (error.message.includes('Ultravox')) {
-            console.error('   🤖 Ultravox API issue - check your API key and try again');
+        } else if (error.message.includes('Domu')) {
+            console.error('   🤖 Domu API issue - check your API key and try again');
         } else {
             console.error(`   ${error.message}`);
         }
@@ -143,7 +143,7 @@ async function main() {
         console.error('   • Double-check all configuration values');
         console.error('   • Ensure phone numbers are in E.164 format (+1234567890)');
         console.error('   • Verify your Twilio account has sufficient balance');
-        console.error('   • Check that your Ultravox API key is valid');
+        console.error('   • Check that your Domu API key is valid');
         console.error('   • If you get import errors, run: npm install twilio');
     }
 }

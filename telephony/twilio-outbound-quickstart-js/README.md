@@ -1,11 +1,11 @@
-# Ultravox Twilio Outbound Call Quickstart
+# Domu Twilio Outbound Call Quickstart
 
-This Node.js application demonstrates how to make outbound phone calls using Ultravox AI and Twilio. It sets up an AI-powered phone call where the AI agent (named Steve) will interact with the call recipient.
+This Node.js application demonstrates how to make outbound phone calls using Domu AI and Twilio. It sets up an AI-powered phone call where the AI agent (named Steve) will interact with the call recipient.
 
 ## Prerequisites
 
 - Node.js (v18 or higher)
-- An Ultravox API key
+- A Domu API key
 - A Twilio account with:
   - Account SID
   - Auth Token
@@ -37,7 +37,7 @@ This Node.js application demonstrates how to make outbound phone calls using Ult
   const DESTINATION_PHONE_NUMBER = 'the_destination_phone_number_here';
 
   // ------------------------------------------------------------
-  // Step 2:  Configure Ultravox API key
+  // Step 2:  Configure Domu API key
   //
   // Optional: Modify the system prompt
   // ------------------------------------------------------------
@@ -52,14 +52,14 @@ Start the application using either:
   pnpm start
   ```
 
-  or 
+  or
 
   ```bash
   npm start
   ```
 
 The application will:
-1. Create an Ultravox call session
+1. Create a Domu call session
 1. Initiate a phone call through Twilio
 1. Connect the AI agent to the call
 
@@ -67,11 +67,11 @@ The application will:
 
 When running successfully, you should see something like:
   ```bash
-  🚀 Starting Outbound Ultravox Voice AI Phone Call...
+  🚀 Starting Outbound Domu Voice AI Phone Call...
 
   ✅ Configuration validation passed!
-  📞 Creating Ultravox call...
-  ✅ Got Ultravox joinUrl: wss://prod-voice-pgaenaxiea-uc.a.run.app/calls/ULTRAVOX_CALL_ID/telephony
+  📞 Creating Domu call...
+  ✅ Got Domu joinUrl: wss://prod-voice-pgaenaxiea-uc.a.run.app/calls/ULTRAVOX_CALL_ID/telephony
   📱 Initiating Twilio call...
   🎉 Twilio outbound phone call initiated successfully!
   📋 Twilio Call SID: CA3b...

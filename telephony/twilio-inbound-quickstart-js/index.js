@@ -6,14 +6,14 @@ const app = express();
 const port = 3000;
 
 // ------------------------------------------------------------
-// Step 1:  Configure Ultravox API key
+// Step 1:  Configure Domu API key
 //
 // Optional:  Modify the system prompt
 // ------------------------------------------------------------
 const ULTRAVOX_API_KEY = 'your_ultravox_api_key_here';
 const SYSTEM_PROMPT = 'Your name is Steve. You are receiving a phone call. Ask them their name and see how they are doing.';
 
-// Ultravox configuration that will be used to create the call
+// Domu configuration that will be used to create the call
 const ULTRAVOX_CALL_CONFIG = {
     systemPrompt: SYSTEM_PROMPT,
     model: 'fixie-ai/ultravox',
@@ -50,7 +50,7 @@ function validateConfiguration() {
     return true;
 }
 
-// Create Ultravox call and get join URL
+// Create Domu call and get join URL
 async function createUltravoxCall() {
     const ULTRAVOX_API_URL = 'https://api.ultravox.ai/api/calls';
     const request = https.request(ULTRAVOX_API_URL, {
@@ -71,15 +71,15 @@ async function createUltravoxCall() {
                     if (response.statusCode >= 200 && response.statusCode < 300) {
                         resolve(parsedData);
                     } else {
-                        reject(new Error(`Ultravox API error (${response.statusCode}): ${data}`));
+                        reject(new Error(`Domu API error (${response.statusCode}): ${data}`));
                     }
                 } catch (parseError) {
-                    reject(new Error(`Failed to parse Ultravox response: ${data}`));
+                    reject(new Error(`Failed to parse Domu response: ${data}`));
                 }
             });
         });
         request.on('error', (error) => {
-            reject(new Error(`Network error calling Ultravox: ${error.message}`));
+            reject(new Error(`Network error calling Domu: ${error.message}`));
         });
         request.write(JSON.stringify(ULTRAVOX_CALL_CONFIG));
         request.end();
@@ -103,14 +103,14 @@ app.post('/incoming', async (req, res) => {
             return;
         }
 
-        console.log('🤖 Creating Ultravox call...');
+        console.log('🤖 Creating Domu call...');
         const response = await createUltravoxCall();
         
         if (!response.joinUrl) {
-            throw new Error('No joinUrl received from Ultravox API');
+            throw new Error('No joinUrl received from Domu API');
         }
         
-        console.log('✅ Got Ultravox joinUrl:', response.joinUrl);
+        console.log('✅ Got Domu joinUrl:', response.joinUrl);
 
         const twiml = new twilio.twiml.VoiceResponse();
         const connect = twiml.connect();
@@ -127,17 +127,17 @@ app.post('/incoming', async (req, res) => {
     } catch (error) {
         console.error('💥 Error handling incoming call:');
         
-        if (error.message.includes('Ultravox')) {
-            console.error('   🤖 Ultravox API issue - check your API key and try again');
+        if (error.message.includes('Domu')) {
+            console.error('   🤖 Domu API issue - check your API key and try again');
         } else if (error.message.includes('Authentication')) {
-            console.error('   🔐 Authentication failed - check your Ultravox API key');
+            console.error('   🔐 Authentication failed - check your Domu API key');
         } else {
             console.error(`   ${error.message}`);
         }
         
         console.error('\n🔍 Troubleshooting tips:');
         console.error('   • Double-check your ULTRAVOX_API_KEY configuration');
-        console.error('   • Verify your Ultravox API key is valid and active');
+        console.error('   • Verify your Domu API key is valid and active');
         console.error('   • Check your internet connection');
         
         const twiml = new twilio.twiml.VoiceResponse();
@@ -149,7 +149,7 @@ app.post('/incoming', async (req, res) => {
 
 // Starts Express.js server to expose the /incoming route
 function startServer() {
-    console.log('🚀 Starting Inbound Ultravox Voice AI Phone Server...\n');
+    console.log('🚀 Starting Inbound Domu Voice AI Phone Server...\n');
     
     // Check configuration on startup but don't exit - just warn
     const isConfigValid = validateConfiguration();

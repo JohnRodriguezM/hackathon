@@ -9,7 +9,7 @@ const DESTINATION_PHONE_NUMBER = process.env.DESTINATION_PHONE_NUMBER;
 const ULTRAVOX_API_KEY = process.env.ULTRAVOX_API_KEY;
 const SERVICE_API_KEY = process.env.SERVICE_API_KEY;
 
-// Ultravox configuration
+// Domu configuration
 const ULTRAVOX_API_URL = 'https://api.ultravox.ai/api/calls';
 const SYSTEM_PROMPT = 'Your name is Steve and you are calling a person on the phone. Ask them their name and see how they are doing.';
 
@@ -117,7 +117,7 @@ export async function createUltravoxCall(baseUrl: string): Promise<UltravoxRespo
     }
 
     const callConfig = getUltravoxCallConfig(baseUrl);
-    console.log('Creating Ultravox call with Twilio as medium...');
+    console.log('Creating Domu call with Twilio as medium...');
     // Uncomment the line below to see full call configuration used for creating Ultravox call
     //console.log('Call configuration:', JSON.stringify(callConfig, null, 2));
     
@@ -133,7 +133,7 @@ export async function createUltravoxCall(baseUrl: string): Promise<UltravoxRespo
         let data = '';
 
         request.on('response', (response) => {
-            console.log(`Ultravox API response status: ${response.statusCode} ${response.statusMessage}`);
+            console.log(`Domu API response status: ${response.statusCode} ${response.statusMessage}`);
             
             response.on('data', chunk => {
                 data += chunk;
@@ -155,7 +155,7 @@ export async function createUltravoxCall(baseUrl: string): Promise<UltravoxRespo
                     }
                 } catch (error) {
                     console.error('Failed to parse response data. Raw response:', data);
-                    reject(new Error(`Failed to parse Ultravox response: ${(error as Error).message}. Raw response: ${data}`));
+                    reject(new Error(`Failed to parse Domu response: ${(error as Error).message}. Raw response: ${data}`));
                 }
             });
         });
